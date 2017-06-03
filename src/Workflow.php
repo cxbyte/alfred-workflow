@@ -22,6 +22,43 @@ class Workflow
     }
 
     /**
+     * @param string|null $url
+     * @param array|null $options
+     *
+     * @return bool|mixed|string
+     */
+    public function request(string $url = null, array $options = null)
+    {
+        if (is_null($url)) {
+            return false;
+        }
+        $defaults = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_URL => $url,
+            CURLOPT_FRESH_CONNECT => true
+        );
+        if ($options) {
+            foreach ($options as $k => $v) {
+                $defaults[$k] = $v;
+            }
+        }
+        array_filter(
+            $defaults,
+            [$this, 'empty_filter']
+        );
+        $ch = curl_init();
+        curl_setopt_array($ch, $defaults);
+        $out = curl_exec($ch);
+        $err = curl_error($ch);
+        curl_close($ch);
+        if ($err) {
+            return $err;
+        } else {
+            return $out;
+        }
+    }
+
+    /**
      * Add a variables to the workflow
      *
      * @param string $key
