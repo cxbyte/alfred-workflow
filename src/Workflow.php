@@ -21,6 +21,14 @@ class Workflow
         return $result;
     }
 
+    private function empty_filter( $a ) {
+        if ( $a == '' || $a == null ):						// if $a is empty or null
+            return false;									// return false, else, return true
+        else:
+            return true;
+        endif;
+    }
+
     /**
      * @param string|null $url
      * @param array|null $options
