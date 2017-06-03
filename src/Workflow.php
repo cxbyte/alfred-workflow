@@ -56,6 +56,9 @@ class Workflow
         );
         $ch = curl_init();
         curl_setopt_array($ch, $defaults);
+        if (isset($options['username']) && isset($options['password'])) {
+            curl_setopt($ch, CURLOPT_USERPWD, $options['username'] . ":" . $options['password']);
+        }
         $out = curl_exec($ch);
         $err = curl_error($ch);
         curl_close($ch);
