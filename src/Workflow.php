@@ -30,12 +30,12 @@ class Workflow
     }
 
     /**
-     * @param string|null $url
+     * @param null $url
      * @param array|null $options
      *
      * @return bool|mixed|string
      */
-    public function request(string $url = null, array $options = null)
+    public function request($url = null, array $options = null)
     {
         if (is_null($url)) {
             return false;
